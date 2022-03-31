@@ -1,1 +1,1 @@
-web:npm run start postinstall --prefix server
+web:npm run postinstall --prefix server
