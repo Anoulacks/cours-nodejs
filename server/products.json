@@ -14,5 +14,9 @@
   {
     "name": "cerises",
     "quantity": 10
+  },
+  {
+    "name": "pasteque",
+    "quantity": 210
   }
 ]
