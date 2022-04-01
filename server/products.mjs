@@ -1,29 +1,29 @@
-import fs from "fs";
+import fs from 'fs'
 
-let products = [];
+let products = []
 
 /**
  * CHARGE LES PRODUITS DU FICHIER DANS LE TABLEAU
  */
 const loadProducts = () => {
   try {
-    const data = fs.readFileSync("./products.json", "utf8");
-    products = JSON.parse(data);
+    const data = fs.readFileSync('./products.json', 'utf8')
+    products = JSON.parse(data)
   } catch (err) {
-    console.error(`loadProducts > ${err}`);
+    console.error(`loadProducts > ${err}`)
   }
-};
+}
 
 /**
  * ECRIT LE TABLEAU DE PRODUITS DANS LE FICHIER
  */
 const writeProducts = () => {
   try {
-    fs.writeFileSync("./products.json", JSON.stringify(products, null, 2));
+    fs.writeFileSync('./products.json', JSON.stringify(products, null, 2))
   } catch (err) {
-    console.error(`writeProducts > ${err}`);
+    console.error(`writeProducts > ${err}`)
   }
-};
+}
 
 /**
  * AJOUT SYNCHRONE
@@ -31,34 +31,34 @@ const writeProducts = () => {
  * @returns promise
  */
 const add = (name, quantity) => {
-  loadProducts();
-  const pdt = products.find((e) => e.name === name);
+  loadProducts()
+  const pdt = products.find((e) => e.name === name)
 
   if (pdt) {
     if (quantity) {
-      pdt.quantity += quantity;
+      pdt.quantity += quantity
     } else {
-      console.log(`Manque la quantity pour ${name}`);
-      return `Manque la quantity pour ${name}`;
+      console.log(`Manque la quantity pour ${name}`)
+      return `Manque la quantity pour ${name}`
     }
   } else {
-    products.push({ name, quantity });
+    products.push({ name, quantity })
   }
 
-  writeProducts();
+  writeProducts()
 
-  console.log(`${quantity} ${name} ajouté(e)(s)`);
-  return `${quantity} ${name} ajouté(e)(s)`;
-};
+  console.log(`${quantity} ${name} ajouté(e)(s)`)
+  return `${quantity} ${name} ajouté(e)(s)`
+}
 
 /**
  * RETOURNE LA LISTE DES PRODUITS
  * @returns [object]
  */
 const getAll = () => {
-  loadProducts();
-  return products;
-};
+  loadProducts()
+  return products
+}
 
 /**
  * RETOURNE UN PRODUIT PAR SON NOM
@@ -66,9 +66,9 @@ const getAll = () => {
  * @returns object : product
  */
 const getByName = (name) => {
-  loadProducts();
-  return products.find((p) => p.name === name);
-};
+  loadProducts()
+  return products.find((p) => p.name === name)
+}
 
 /**
  * MET A JOUR UN PRODUIT PAR SON NOM
@@ -77,17 +77,17 @@ const getByName = (name) => {
  * @returns bool
  */
 const update = (name, p) => {
-  loadProducts();
-  const i = products.findIndex((e) => e.name === name);
+  loadProducts()
+  const i = products.findIndex((e) => e.name === name)
 
   if (i > -1) {
-    products[i] = p;
-    writeProducts();
-    return true;
+    products[i] = p
+    writeProducts()
+    return true
   }
 
-  return false;
-};
+  return false
+}
 
 /**
  * SUPPRIME LE PRODUIT SI AUCUNE QUANTITY PASSEE SINON SUPPRIME LE NOMBRE DE QUANTITY
@@ -96,30 +96,30 @@ const update = (name, p) => {
  * @returns
  */
 const remove = (name, quantity) => {
-  loadProducts();
-  const pdt = products.find((e) => e.name === name);
+  loadProducts()
+  const pdt = products.find((e) => e.name === name)
 
-  if (!pdt) return false;
+  if (!pdt) return false
 
   if (quantity) {
     // pas assez de stock
     if (quantity > pdt.quantity) {
-      console.log(`Stock insufisant pour ${name} : ${pdt.quantity} max`);
-      return false;
+      console.log(`Stock insufisant pour ${name} : ${pdt.quantity} max`)
+      return false
     }
 
     // soustrait le stock
-    pdt.quantity -= quantity;
-    console.log(`${quantity} ${name} supprimé(e)(s), reste ${pdt.quantity}`);
-    writeProducts();
-    return true;
+    pdt.quantity -= quantity
+    console.log(`${quantity} ${name} supprimé(e)(s), reste ${pdt.quantity}`)
+    writeProducts()
+    return true
   }
 
   // supprime le produit
-  products = products.filter((e) => e.name !== name);
-  console.log(`${pdt.name} supprimé(e)s, 0 stock`);
-  writeProducts();
-  return true;
-};
+  products = products.filter((e) => e.name !== name)
+  console.log(`${pdt.name} supprimé(e)s, 0 stock`)
+  writeProducts()
+  return true
+}
 
-export { add, getAll, getByName, update, remove };
+export { add, getAll, getByName, update, remove }
