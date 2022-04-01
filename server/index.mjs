@@ -3,12 +3,13 @@ import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import swaggerUI from 'swagger-ui-express'
 import docs from './docs/index.mjs'
-
+import env from 'dotenv'
 import router from './routes.mjs'
 
 // APP
 const app = express()
-const port = process.env.PORT || 3000
+env.config()
+const port = process.env.PORT
 
 // MIDDLEWARES
 app.use(morgan('tiny'))
