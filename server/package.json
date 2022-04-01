@@ -10,7 +10,7 @@
     "lint": "eslint *.mjs",
     "lint:fix": "eslint *.mjs --fix"
   },
-  "author": "",
+  "author": "Thomas SOUTHASA",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^27.4.1",

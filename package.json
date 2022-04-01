@@ -4,6 +4,6 @@
   "scripts": {
     "postinstall": "npm install --prefix server"
   },
-  "author": "",
+  "author": "Thomas SOUTHASA",
   "license": "ISC"
 }
